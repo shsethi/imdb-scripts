@@ -70,14 +70,6 @@ let movieList = ['Bad boys',
 'Gangs of new York',
 'Heat﻿',
 'Billy madison﻿'];
-// imdb.getReq({ name: 'The Toxic Avenger' }, (err, things) => {
-//     movie = things;
-// });
-
-// // Promises! 
-// imdb.get('The Toxic Avenger').then(console.log);
-// imdb.getById('tt0090190').then(console.log);
-
 
 function formatUrl(url,title, index){
 	return '<li>'+title +'  <a href='+url+'>'+url+'</a><br></li>';
@@ -86,32 +78,16 @@ function formatUrl(url,title, index){
 
 try {
 	movieList.map((movie,index)=>{
-
-		 imdb.getReq({ name: movie }).then(r=>{
-			console.log(r.imdburl);
+		imdb.getReq({ name: movie }).then(r=>{
 			fs.appendFile("Output.html", formatUrl(r.imdburl, r.title , index), function (err,data) {
 				if (err) 
 					return console.log(err);
-				console.log(data);
-
-				console.log('Hello World > helloworld.txt');
+				console.log('Done finding '+ movie);
+				console.log(r.imdburl);
+				
 			});
-
-		})
-			
-		
-
+		})	
 	});
-
-
 } catch(e) {
-		// statements
-		console.log(e);
-	}
-
-
-
-
-// fs.writeFile("Output.html", data, [encoding], [callback])
-
-
+	console.log(e);
+}
